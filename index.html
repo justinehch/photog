@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justine Hong</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+    :root {
+        --bg: #fff;
+        --text: #000;
+        --line: #000;
+    }
+
+    body {
+        font-family: monospace;
+        font-size: 13px;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.4;
+    }
+
+    body.dark {
+        --bg: #000;
+        --text: #fff;
+        --line: #fff;
+    }
+
+    body.bw img {
+        filter: grayscale(1);
+    }
+
+    /* Header */
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+    }
+
+    .title {
+        cursor: pointer;
+        letter-spacing: 0.5px;
+    }
+
+    .title:hover {
+        text-decoration: underline;
+    }
+
+    nav {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .nav-item {
+        background: none;
+        border: none;
+        color: var(--text);
+        font-family: monospace;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 0;
+        letter-spacing: 0.3px;
+    }
+
+    .nav-item:hover {
+        text-decoration: underline;
+    }
+
+    .divider {
+        color: var(--text);
+        opacity: 0.3;
+    }
+
+    /* Main content */
+    main {
+        margin-top: 45px;
+    }
+
+    /* Gallery view */
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .photo {
+        aspect-ratio: 1;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        background: var(--bg);
+    }
+
+    .photo:nth-child(4n) {
+        border-right: none;
+    }
+
+    .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: opacity 0.2s;
+    }
+
+    .photo:hover img {
+        opacity: 0.8;
+    }
+
+    .photo-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 8px;
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        color: #fff;
+        font-size: 11px;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+    }
+
+    .photo:hover .photo-info {
+        opacity: 1;
+    }
+
+    /* Index view */
+    .index {
+        display: none;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 4px;
+        padding: 4px;
+    }
+
+    .index.active {
+        display: grid;
+    }
+
+    .index .photo {
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .index .photo:nth-child(8n) {
+        border-right: none;
+    }
+
+    .index .photo:nth-child(4n) {
+        border-right: none;
+    }
+
+    /* Lightbox */
+    .lightbox {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+    }
+
+    .lightbox.active {
+        display: flex;
+    }
+
+    .lightbox-img {
+        max-width: 92vw;
+        max-height: 92vh;
+        object-fit: contain;
+        cursor: pointer;
+    }
+
+    .lightbox-nav {
+        position: fixed;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-family: monospace;
+        font-size: 13px;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+    }
+
+    .lightbox-nav:hover {
+        text-decoration: underline;
+    }
+
+    .lb-close {
+        top: 12px;
+        right: 16px;
+    }
+
+    .lb-prev {
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 48px;
+        line-height: 1;
+    }
+
+    .lb-next {
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 48px;
+        line-height: 1;
+    }
+
+    .lb-info {
+        position: fixed;
+        bottom: 12px;
+        left: 16px;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+        .gallery {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .photo:nth-child(4n) {
+            border-right: none;
+        }
+
+        .photo:nth-child(3n) {
+            border-right: none;
+        }
+
+        .index {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .index .photo:nth-child(8n) {
+            border-right: none;
+        }
+
+        .index .photo:nth-child(6n) {
+            border-right: none;
+        }
+    }
+
+    @media (max-width: 600px) {
+        header {
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px 12px;
+        }
+
+        main {
+            margin-top: 65px;
+        }
+
+        nav {
+            gap: 12px;
+        }
+
+        .gallery {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .photo:nth-child(3n) {
+            border-right: none;
+        }
+
+        .photo:nth-child(2n) {
+            border-right: none;
+        }
+
+        .index {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .index .photo:nth-child(6n) {
+            border-right: none;
+        }
+
+        .index .photo:nth-child(4n) {
+            border-right: none;
+        }
+
+        .lb-prev, .lb-next {
+            font-size: 32px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <header>
+        <div class="title" onclick="resetView()">Justine Hong</div>
+        <nav>
+            <button class="nav-item" onclick="toggleIndex()">index</button>
+            <span class="divider">/</span>
+            <button class="nav-item" onclick="toggleTheme()">light / dark</button>
+            <span class="divider">/</span>
+            <button class="nav-item" onclick="toggleBW()">color / b & w</button>
+        </nav>
+    </header>
+
+```
+<main>
+    <div class="gallery" id="gallery"></div>
+    <div class="index" id="index"></div>
+</main>
+
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-nav lb-close" onclick="closeLightbox()">back (esc)</button>
+    <button class="lightbox-nav lb-prev" onclick="nav(-1)">‹</button>
+    <img class="lightbox-img" id="lb-img" src="" alt="" onclick="closeLightbox()">
+    <button class="lightbox-nav lb-next" onclick="nav(1)">›</button>
+    <div class="lb-info" id="lb-info"></div>
+</div>
+
+<script>
+    // REPLACE WITH YOUR PHOTOS
+    // Replace the photos array in your HTML with this (reversed order - newest first):
+
+const photos = [
+    { url: 'images/Photo (51).jpg', info: 'Bali, 2024' },
+    { url: 'images/Photo (50).jpg', info: 'Phu Chi Fa, 2019' },
+    { url: 'images/Photo (49).jpg', info: 'Phu Chi Fa, 2019' },
+    { url: 'images/Photo (48).jpg', info: 'Phu Chi Fa, 2019' },
+    { url: 'images/Photo (47).jpg', info: 'Tioman, 2019' },
+    { url: 'images/Photo (46).jpg', info: 'Tioman, 2019' },
+    { url: 'images/Photo (45).jpg', info: 'Yangon, 2018' },
+    { url: 'images/Photo (44).jpg', info: 'Inle lake, 2018' },
+    { url: 'images/Photo (43).jpg', info: 'Inle lake, 2018' },
+    { url: 'images/Photo (42).jpg', info: 'Inle lake, 2018' },
+    { url: 'images/Photo (41).jpg', info: 'Bagan, 2018' },
+    { url: 'images/Photo (40).jpg', info: 'Bagan, 2018' },
+    { url: 'images/Photo (39).jpg', info: 'Bagan, 2018' },
+    { url: 'images/Photo (38).jpg', info: 'Bagan, 2018' },
+    { url: 'images/Photo (37).jpg', info: 'Bagan, 2018' },
+    { url: 'images/Photo (36).jpg', info: 'Bagan, 2018' },
+    { url: 'images/Photo (35).jpg', info: 'Bagan, 2018' },
+    { url: 'images/Photo (34).jpg', info: 'Yangon, 2018' },
+    { url: 'images/Photo (33).jpg', info: 'Yangon, 2018' },
+    { url: 'images/Photo (32).jpg', info: 'Luang Prabang, 2018' },
+    { url: 'images/Photo (31).jpg', info: 'Luang Prabang, 2018' },
+    { url: 'images/Photo (30).jpg', info: 'Angkor / SiemReap, 2018' },
+    { url: 'images/Photo (29).jpg', info: 'Kuang Si falls / Luang Prabang, 2018' },
+    { url: 'images/Photo (28).jpg', info: 'Sibu, 2017' },
+    { url: 'images/Photo (27).jpg', info: 'Sibu, 2017' },
+    { url: 'images/Photo (26).jpg', info: 'Macau, 2016' },
+    { url: 'images/Photo (25).jpg', info: 'Macau, 2016' },
+    { url: 'images/Photo (24).jpg', info: 'Macau, 2016' },
+    { url: 'images/Photo (23).jpg', info: 'Ruins / Macau, 2016' },
+    { url: 'images/Photo (22).jpg', info: 'War Muzeum / Ho Chi Minh City, 2016' },
+    { url: 'images/Photo (21).jpg', info: 'Reunification Palace / Ho Chi Minh City, 2016' },
+    { url: 'images/Photo (20).jpg', info: 'Viet / Ho Chi Minh City, 2016' },
+    { url: 'images/Photo (19).jpg', info: 'Fairlady Z / Petaling Jaya, 2015' },
+    { url: 'images/Photo (18).jpg', info: 'Fairlady Z / Petaling Jaya, 2015' },
+    { url: 'images/Photo (17).jpg', info: 'KL / Kuala Lumpur, 2014' },
+    { url: 'images/Photo (16).jpg', info: 'KLCC / Kuala Lumpur, 2014' },
+    { url: 'images/Photo (15).jpg', info: 'Putrajaya / Putrajaya, 2013' },
+    { url: 'images/Photo (14).jpg', info: 'Friends / Penang, 2013' },
+    { url: 'images/Photo (13).jpg', info: 'Uluwatu / Bali, 2013' },
+    { url: 'images/Photo (12).jpg', info: 'Uma Ubud / Bali, 2013' },
+    { url: 'images/Photo (11).jpg', info: 'Uma Ubud / Bali, 2013' },
+    { url: 'images/Photo (10).jpg', info: 'Uma Ubud / Bali, 2013' },
+    { url: 'images/Photo (9).jpg', info: 'Kuta / Bali, 2013' },
+    { url: 'images/Photo (8).jpg', info: 'Street / Malacca, 2013' },
+    { url: 'images/Photo (7).jpg', info: 'Town / Kuching, 2012' },
+    { url: 'images/Photo (6).jpg', info: 'Charcoal Factory / Taiping, 2011' },
+    { url: 'images/Photo (5).jpg', info: 'Cemetary / Taiping, 2011' },
+    { url: 'images/Photo (4).jpg', info: 'Hostel / Kampar, 2011' },
+    { url: 'images/Photo (3).jpg', info: 'Lecture / Kampar, 2011' },
+    { url: 'images/Photo (2).jpg', info: 'Old Courthouse / Taiping, 2010' },
+    { url: 'images/Photo (1).jpg', info: 'Old Courthouse / Taiping, 2010' },
+];
+
+    let idx = 0;
+    let view = 'gallery';
+
+    function init() {
+        const g = document.getElementById('gallery');
+        const ix = document.getElementById('index');
+        
+        photos.forEach((p, i) => {
+            // Gallery view
+            const d = document.createElement('div');
+            d.className = 'photo';
+            d.onclick = () => open(i);
+            const img = document.createElement('img');
+            img.src = p.url;
+            img.loading = 'lazy';
+            const info = document.createElement('div');
+            info.className = 'photo-info';
+            info.textContent = p.info;
+            d.appendChild(img);
+            d.appendChild(info);
+            g.appendChild(d);
+
+            // Index view
+            const d2 = document.createElement('div');
+            d2.className = 'photo';
+            d2.onclick = () => open(i);
+            const img2 = document.createElement('img');
+            img2.src = p.url;
+            img2.loading = 'lazy';
+            const info2 = document.createElement('div');
+            info2.className = 'photo-info';
+            info2.textContent = p.info;
+            d2.appendChild(img2);
+            d2.appendChild(info2);
+            ix.appendChild(d2);
+        });
+    }
+
+    function open(i) {
+        idx = i;
+        document.getElementById('lb-img').src = photos[i].url;
+        document.getElementById('lb-info').textContent = photos[i].info;
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function nav(d) {
+        idx = (idx + d + photos.length) % photos.length;
+        document.getElementById('lb-img').src = photos[idx].url;
+        document.getElementById('lb-info').textContent = photos[idx].info;
+    }
+
+    function toggleIndex() {
+        if (view === 'gallery') {
+            document.getElementById('gallery').style.display = 'none';
+            document.getElementById('index').classList.add('active');
+            view = 'index';
+        } else {
+            document.getElementById('gallery').style.display = 'grid';
+            document.getElementById('index').classList.remove('active');
+            view = 'gallery';
+        }
+    }
+
+    function resetView() {
+        document.getElementById('gallery').style.display = 'grid';
+        document.getElementById('index').classList.remove('active');
+        view = 'gallery';
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+    }
+
+    function toggleBW() {
+        document.body.classList.toggle('bw');
+    }
+
+    document.addEventListener('keydown', e => {
+        const lb = document.getElementById('lightbox');
+        if (lb.classList.contains('active')) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') nav(-1);
+            if (e.key === 'ArrowRight') nav(1);
+        }
+    });
+
+    init();
+</script>
+
+</body>
+</html>
