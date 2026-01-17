@@ -481,6 +481,16 @@ const photos = [
     });
 
     init();
+
+// Disable right-click on the entire document
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Disable dragging of images
+document.addEventListener('dragstart', event => {
+    if (event.target.tagName === 'IMG') {
+        event.preventDefault();
+    }
+});
 </script>
 
 </body>
