@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justine Hong - Photography</title>
+    <title>Justine Hong | Still</title>
+    <meta name="description" content="Photography portfolio of Justine Hong - documenting cultures, landscapes, and everyday beauty across Southeast Asia">
     <style>
         * {
             margin: 0;
@@ -18,11 +19,12 @@
         }
 
         body {
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             font-size: 13px;
             background: var(--bg);
             color: var(--text);
             line-height: 1.4;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         body.dark {
@@ -43,11 +45,12 @@
             right: 0;
             background: var(--bg);
             border-bottom: 1px solid var(--line);
-            padding: 12px 16px;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
+            transition: background 0.3s ease;
         }
 
         .title-section {
@@ -59,17 +62,19 @@
         .title {
             cursor: pointer;
             letter-spacing: 0.5px;
+            font-weight: bold;
+            transition: opacity 0.2s ease;
         }
 
         .title:hover {
-            text-decoration: underline;
+            opacity: 0.7;
         }
 
         .bio-link {
             position: relative;
             cursor: help;
             letter-spacing: 0.3px;
-            opacity: 0.7;
+            opacity: 0.6;
             transition: opacity 0.3s ease;
         }
 
@@ -79,20 +84,20 @@
 
         .bio-tooltip {
             position: absolute;
-            top: calc(100% + 10px);
+            top: calc(100% + 12px);
             left: 0;
             background: var(--bg);
             border: 1px solid var(--line);
-            padding: 16px;
-            min-width: 320px;
-            max-width: 400px;
+            padding: 18px;
+            min-width: 340px;
+            max-width: 420px;
             opacity: 0;
             pointer-events: none;
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             transition: opacity 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             z-index: 101;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .bio-link:hover .bio-tooltip {
@@ -111,15 +116,16 @@
             background: none;
             border: none;
             color: var(--text);
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             font-size: 13px;
             cursor: pointer;
             padding: 0;
             letter-spacing: 0.3px;
+            transition: opacity 0.2s ease;
         }
 
         .nav-item:hover {
-            text-decoration: underline;
+            opacity: 0.6;
         }
 
         .divider {
@@ -129,19 +135,22 @@
 
         /* Main content */
         main {
-            margin-top: 45px;
-            padding: 20px;
+            margin-top: 50px;
+            padding: 30px 20px;
+            max-width: 2000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Masonry Gallery */
         .gallery {
             column-count: 3;
-            column-gap: 20px;
+            column-gap: 24px;
         }
 
         .photo {
             break-inside: avoid;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -157,27 +166,26 @@
             }
         }
 
-        .photo:nth-child(1) { animation-delay: 0.1s; }
-        .photo:nth-child(2) { animation-delay: 0.15s; }
-        .photo:nth-child(3) { animation-delay: 0.2s; }
-        .photo:nth-child(4) { animation-delay: 0.25s; }
-        .photo:nth-child(5) { animation-delay: 0.3s; }
-        .photo:nth-child(6) { animation-delay: 0.35s; }
-        .photo:nth-child(7) { animation-delay: 0.4s; }
-        .photo:nth-child(8) { animation-delay: 0.45s; }
-        .photo:nth-child(9) { animation-delay: 0.5s; }
-        .photo:nth-child(n+10) { animation-delay: 0.55s; }
+        .photo:nth-child(1) { animation-delay: 0.05s; }
+        .photo:nth-child(2) { animation-delay: 0.1s; }
+        .photo:nth-child(3) { animation-delay: 0.15s; }
+        .photo:nth-child(4) { animation-delay: 0.2s; }
+        .photo:nth-child(5) { animation-delay: 0.25s; }
+        .photo:nth-child(6) { animation-delay: 0.3s; }
+        .photo:nth-child(7) { animation-delay: 0.35s; }
+        .photo:nth-child(8) { animation-delay: 0.4s; }
+        .photo:nth-child(9) { animation-delay: 0.45s; }
+        .photo:nth-child(n+10) { animation-delay: 0.5s; }
 
         .photo img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.4s ease, opacity 0.3s ease;
+            transition: transform 0.5s ease, filter 0.3s ease;
         }
 
         .photo:hover img {
-            transform: scale(1.03);
-            opacity: 0.9;
+            transform: scale(1.04);
         }
 
         .photo-info {
@@ -185,13 +193,14 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 12px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 14px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
             color: #fff;
             font-size: 11px;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            letter-spacing: 0.3px;
         }
 
         .photo:hover .photo-info {
@@ -202,7 +211,7 @@
         .index {
             display: none;
             column-count: 6;
-            column-gap: 10px;
+            column-gap: 12px;
         }
 
         .index.active {
@@ -210,14 +219,19 @@
         }
 
         .index .photo {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .index .photo-info {
+            font-size: 10px;
+            padding: 10px;
         }
 
         /* Lightbox */
         .lightbox {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.97);
+            background: rgba(0, 0, 0, 0.98);
             display: none;
             align-items: center;
             justify-content: center;
@@ -235,54 +249,56 @@
         }
 
         .lightbox-img {
-            max-width: 92vw;
-            max-height: 92vh;
+            max-width: 90vw;
+            max-height: 90vh;
             object-fit: contain;
             cursor: pointer;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.7);
         }
 
         .lightbox-nav {
             position: fixed;
             background: none;
             border: none;
-            color: #fff;
-            font-family: monospace;
+            color: rgba(255,255,255,0.9);
+            font-family: 'Courier New', monospace;
             font-size: 13px;
             cursor: pointer;
             letter-spacing: 0.3px;
+            transition: color 0.2s ease;
         }
 
         .lightbox-nav:hover {
-            text-decoration: underline;
+            color: rgba(255,255,255,0.6);
         }
 
         .lb-close {
-            top: 12px;
-            right: 16px;
+            top: 16px;
+            right: 20px;
         }
 
         .lb-prev {
-            left: 16px;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 48px;
+            font-size: 52px;
             line-height: 1;
         }
 
         .lb-next {
-            right: 16px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 48px;
+            font-size: 52px;
             line-height: 1;
         }
 
         .lb-info {
             position: fixed;
-            bottom: 12px;
-            left: 16px;
-            color: #fff;
+            bottom: 16px;
+            left: 20px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.3px;
         }
 
         /* Mobile */
@@ -296,22 +312,47 @@
             }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             header {
-                flex-direction: column;
-                gap: 8px;
-                padding: 10px 12px;
+                padding: 12px 16px;
             }
 
             .title-section {
-                flex-direction: column;
-                gap: 4px;
+                gap: 8px;
+            }
+
+            .bio-tooltip {
+                min-width: 300px;
+            }
+
+            .gallery {
+                column-count: 2;
+                column-gap: 16px;
+            }
+
+            .photo {
+                margin-bottom: 16px;
+            }
+
+            .index {
+                column-count: 3;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 10px 14px;
+            }
+
+            .title-section {
+                font-size: 12px;
             }
 
             .bio-tooltip {
                 min-width: 280px;
+                max-width: calc(100vw - 28px);
                 left: 50%;
-                transform: translateX(-50%) translateY(-5px);
+                transform: translateX(-50%) translateY(-8px);
             }
 
             .bio-link:hover .bio-tooltip {
@@ -319,12 +360,17 @@
             }
 
             main {
-                margin-top: 85px;
-                padding: 15px;
+                margin-top: 45px;
+                padding: 20px 14px;
             }
 
             nav {
-                gap: 12px;
+                gap: 10px;
+                font-size: 11px;
+            }
+
+            .nav-item {
+                font-size: 11px;
             }
 
             .gallery {
@@ -333,15 +379,24 @@
             }
 
             .photo {
-                margin-bottom: 15px;
+                margin-bottom: 18px;
             }
 
             .index {
                 column-count: 3;
+                column-gap: 8px;
             }
 
             .lb-prev, .lb-next {
-                font-size: 32px;
+                font-size: 36px;
+            }
+
+            .lb-close {
+                font-size: 11px;
+            }
+
+            .lb-info {
+                font-size: 11px;
             }
         }
     </style>
@@ -350,8 +405,8 @@
     <header>
         <div class="title-section">
             <div class="title" onclick="resetView()">Justine Hong</div>
+            <span class="divider">|</span>
             <div class="bio-link">
-                <span class="divider">|</span>
                 behind the lens
                 <div class="bio-tooltip">
                     Based in Malaysia, I document cultures, landscapes, and the beauty of everyday life through a minimalist lens. Each photograph tells a story of places explored and memories made from 2010 to present.
@@ -363,7 +418,7 @@
             <span class="divider">|</span>
             <button class="nav-item" onclick="toggleTheme()">light / dark</button>
             <span class="divider">|</span>
-            <button class="nav-item" onclick="toggleBW()">color / b & w</button>
+            <button class="nav-item" onclick="toggleBW()">color / b&w</button>
         </nav>
     </header>
 
@@ -381,7 +436,7 @@
     </div>
 
     <script>
-        // REPLACE WITH YOUR PHOTOS
+        // ADD YOUR PHOTOS HERE
         const photos = [
             { url: 'IMAGES/Photo (51).jpg', info: 'Bali, 2024' },
             { url: 'IMAGES/Photo (50).jpg', info: 'Phu Chi Fa, 2019' },
@@ -444,12 +499,14 @@
             const ix = document.getElementById('index');
             
             photos.forEach((p, i) => {
+                // Gallery view
                 const d = document.createElement('div');
                 d.className = 'photo';
                 d.onclick = () => open(i);
                 const img = document.createElement('img');
                 img.src = p.url;
                 img.loading = 'lazy';
+                img.alt = p.info;
                 const info = document.createElement('div');
                 info.className = 'photo-info';
                 info.textContent = p.info;
@@ -457,12 +514,14 @@
                 d.appendChild(info);
                 g.appendChild(d);
 
+                // Index view
                 const d2 = document.createElement('div');
                 d2.className = 'photo';
                 d2.onclick = () => open(i);
                 const img2 = document.createElement('img');
                 img2.src = p.url;
                 img2.loading = 'lazy';
+                img2.alt = p.info;
                 const info2 = document.createElement('div');
                 info2.className = 'photo-info';
                 info2.textContent = p.info;
@@ -475,6 +534,7 @@
         function open(i) {
             idx = i;
             document.getElementById('lb-img').src = photos[i].url;
+            document.getElementById('lb-img').alt = photos[i].info;
             document.getElementById('lb-info').textContent = photos[i].info;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -488,6 +548,7 @@
         function nav(d) {
             idx = (idx + d + photos.length) % photos.length;
             document.getElementById('lb-img').src = photos[idx].url;
+            document.getElementById('lb-img').alt = photos[idx].info;
             document.getElementById('lb-info').textContent = photos[idx].info;
         }
 
@@ -507,16 +568,20 @@
             document.getElementById('gallery').style.display = 'block';
             document.getElementById('index').classList.remove('active');
             view = 'gallery';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleTheme() {
             document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
 
         function toggleBW() {
             document.body.classList.toggle('bw');
+            localStorage.setItem('bw', document.body.classList.contains('bw') ? 'true' : 'false');
         }
 
+        // Keyboard navigation
         document.addEventListener('keydown', e => {
             const lb = document.getElementById('lightbox');
             if (lb.classList.contains('active')) {
@@ -526,14 +591,28 @@
             }
         });
 
-        init();
+        // Load saved preferences
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+        }
+        if (localStorage.getItem('bw') === 'true') {
+            document.body.classList.add('bw');
+        }
 
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        // Prevent image download via right-click
+        document.addEventListener('contextmenu', event => {
+            if (event.target.tagName === 'IMG') {
+                event.preventDefault();
+            }
+        });
+        
         document.addEventListener('dragstart', event => {
             if (event.target.tagName === 'IMG') {
                 event.preventDefault();
             }
         });
+
+        init();
     </script>
 </body>
 </html>
