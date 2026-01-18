@@ -98,6 +98,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             z-index: 101;
             line-height: 1.7;
+            cursor: pointer;
         }
 
         .bio-link:hover .bio-tooltip {
@@ -342,6 +343,9 @@
         @media (max-width: 600px) {
             header {
                 padding: 10px 14px;
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
             }
 
             .title-section {
@@ -353,6 +357,7 @@
                 max-width: calc(100vw - 28px);
                 left: 50%;
                 transform: translateX(-50%) translateY(-8px);
+                cursor: pointer;
             }
 
             .bio-link:hover .bio-tooltip {
@@ -360,7 +365,7 @@
             }
 
             main {
-                margin-top: 45px;
+                margin-top: 75px;
                 padding: 20px 14px;
             }
 
@@ -408,7 +413,7 @@
             <span class="divider">|</span>
             <div class="bio-link">
                 behind the lens
-                <div class="bio-tooltip">
+                <div class="bio-tooltip" onclick="event.stopPropagation(); this.parentElement.blur(); this.style.opacity = '0'; this.style.pointerEvents = 'none';">
                     Based in Malaysia, I document cultures, landscapes, and the beauty of everyday life through a minimalist lens. Each photograph tells a story of places explored and memories made from 2010 to present.
                 </div>
             </div>
