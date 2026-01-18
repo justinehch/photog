@@ -72,7 +72,7 @@
 
         .bio-link {
             position: relative;
-            cursor: help;
+            cursor: pointer;
             letter-spacing: 0.3px;
             opacity: 0.6;
             transition: opacity 0.3s ease;
@@ -98,13 +98,22 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             z-index: 101;
             line-height: 1.7;
-            cursor: pointer;
+            cursor: default;
         }
 
-        .bio-link:hover .bio-tooltip {
+        .bio-tooltip.show {
             opacity: 1;
             pointer-events: auto;
             transform: translateY(0);
+        }
+
+        /* Desktop hover */
+        @media (hover: hover) and (pointer: fine) {
+            .bio-link:hover .bio-tooltip {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
         }
 
         nav {
@@ -365,10 +374,9 @@
                 left: auto;
                 right: 0;
                 transform: translateY(-8px);
-                cursor: pointer;
             }
 
-            .bio-link:hover .bio-tooltip {
+            .bio-tooltip.show {
                 transform: translateY(0);
             }
 
@@ -419,9 +427,9 @@
         <div class="title-section">
             <div class="title" onclick="resetView()">Justine Hong</div>
             <span class="divider">|</span>
-            <div class="bio-link" onmouseleave="resetTooltip(this)">
+            <div class="bio-link" onclick="toggleBio(event)">
                 behind the lens
-                <div class="bio-tooltip" onclick="closeTooltip(event, this)">
+                <div class="bio-tooltip" id="bioTooltip">
                     Based in Malaysia, I document cultures, landscapes, and the beauty of everyday life through a minimalist lens. Each photograph tells a story of places explored and memories made from 2010 to present.
                 </div>
             </div>
@@ -584,6 +592,21 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function toggleBio(event) {
+            event.stopPropagation();
+            const tooltip = document.getElementById('bioTooltip');
+            tooltip.classList.toggle('show');
+        }
+
+        // Close bio tooltip when clicking outside
+        document.addEventListener('click', (e) => {
+            const bioLink = document.querySelector('.bio-link');
+            const tooltip = document.getElementById('bioTooltip');
+            if (tooltip && !bioLink.contains(e.target)) {
+                tooltip.classList.remove('show');
+            }
+        });
+
         function toggleTheme() {
             document.body.classList.toggle('dark');
             localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
@@ -592,19 +615,6 @@
         function toggleBW() {
             document.body.classList.toggle('bw');
             localStorage.setItem('bw', document.body.classList.contains('bw') ? 'true' : 'false');
-        }
-
-        function closeTooltip(event, tooltip) {
-            event.stopPropagation();
-            tooltip.style.opacity = '0';
-            tooltip.style.pointerEvents = 'none';
-        }
-
-        function resetTooltip(bioLink) {
-            const tooltip = bioLink.querySelector('.bio-tooltip');
-            // Remove inline styles to allow CSS hover to work again
-            tooltip.style.opacity = '';
-            tooltip.style.pointerEvents = '';
         }
 
         // Keyboard navigation
