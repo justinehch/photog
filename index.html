@@ -287,6 +287,11 @@
             right: 20px;
         }
 
+        .lb-bw-toggle {
+            top: 16px;
+            left: 20px;
+        }
+
         .lb-prev {
             left: 20px;
             top: 50%;
@@ -408,6 +413,10 @@
                 column-gap: 8px;
             }
 
+            .lb-bw-toggle {
+                font-size: 11px;
+            }
+
             .lb-prev, .lb-next {
                 font-size: 36px;
             }
@@ -449,9 +458,10 @@
     </main>
 
     <div class="lightbox" id="lightbox">
+        <button class="lightbox-nav lb-bw-toggle" onclick="toggleBW()">color / b&w</button>
         <button class="lightbox-nav lb-close" onclick="closeLightbox()">back (esc)</button>
         <button class="lightbox-nav lb-prev" onclick="nav(-1)">‹</button>
-        <img class="lightbox-img" id="lb-img" src="" alt="" onclick="closeLightbox()">
+        <img class="lightbox-img" id="lb-img" src="" alt="" onclick="nav(1)">
         <button class="lightbox-nav lb-next" onclick="nav(1)">›</button>
         <div class="lb-info" id="lb-info"></div>
     </div>
