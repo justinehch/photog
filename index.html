@@ -344,24 +344,32 @@
             header {
                 padding: 10px 14px;
                 flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
+                gap: 10px;
+                align-items: center;
             }
 
             .title-section {
                 font-size: 12px;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
             }
 
             .bio-tooltip {
                 min-width: 280px;
                 max-width: calc(100vw - 28px);
-                left: 50%;
-                transform: translateX(-50%) translateY(-8px);
+                left: auto;
+                right: 0;
+                transform: translateY(-8px);
                 cursor: pointer;
             }
 
             .bio-link:hover .bio-tooltip {
-                transform: translateX(-50%) translateY(0);
+                transform: translateY(0);
             }
 
             main {
@@ -411,9 +419,9 @@
         <div class="title-section">
             <div class="title" onclick="resetView()">Justine Hong</div>
             <span class="divider">|</span>
-            <div class="bio-link">
+            <div class="bio-link" onmouseleave="resetTooltip(this)">
                 behind the lens
-                <div class="bio-tooltip" onclick="event.stopPropagation(); this.parentElement.blur(); this.style.opacity = '0'; this.style.pointerEvents = 'none';">
+                <div class="bio-tooltip" onclick="closeTooltip(event, this)">
                     Based in Malaysia, I document cultures, landscapes, and the beauty of everyday life through a minimalist lens. Each photograph tells a story of places explored and memories made from 2010 to present.
                 </div>
             </div>
@@ -584,6 +592,19 @@
         function toggleBW() {
             document.body.classList.toggle('bw');
             localStorage.setItem('bw', document.body.classList.contains('bw') ? 'true' : 'false');
+        }
+
+        function closeTooltip(event, tooltip) {
+            event.stopPropagation();
+            tooltip.style.opacity = '0';
+            tooltip.style.pointerEvents = 'none';
+        }
+
+        function resetTooltip(bioLink) {
+            const tooltip = bioLink.querySelector('.bio-tooltip');
+            // Remove inline styles to allow CSS hover to work again
+            tooltip.style.opacity = '';
+            tooltip.style.pointerEvents = '';
         }
 
         // Keyboard navigation
